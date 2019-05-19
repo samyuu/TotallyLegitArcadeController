@@ -39,8 +39,16 @@ namespace DivaHook::Input
 	{
 		HRESULT result = NULL;
 
-		if (FAILED(result = DI_CreateDevice(GUID_Ds4)))
-			return false;
+		const size_t guidCount = sizeof(GUID_Ds4) / sizeof(GUID);
+		for (size_t i = 0; i < guidCount; i++)
+		{
+			result = DI_CreateDevice(GUID_Ds4[i]);
+
+			if (!FAILED(result))
+				break;
+			else if (i == guidCount - 1)
+				return false;
+		}
 
 		if (FAILED(result = DI_SetDataFormat(&c_dfDIJoystick2)))
 			return false;

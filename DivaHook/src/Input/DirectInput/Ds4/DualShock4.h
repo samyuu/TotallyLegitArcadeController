@@ -5,8 +5,14 @@
 
 namespace DivaHook::Input
 {
-	// DualShock 4 Wireless Controller Product GUID: {09CC054C-0000-0000-0000-504944564944}
-	const GUID GUID_Ds4 = { 0x09CC054C, 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } };
+	// DualShock 4 Wireless Controller Product GUIDs:
+	const GUID GUID_Ds4[2] = 
+	{ 
+		// First Generation:  {05C4054C-0000-0000-0000-504944564944}
+		{ 0x05C4054C, 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } },
+		// Second Generation: {09CC054C-0000-0000-0000-504944564944}
+		{ 0x09CC054C, 0x0000, 0x0000, { 0x00, 0x00, 0x50, 0x49, 0x44, 0x56, 0x49, 0x44 } },
+	};
 
 	class DualShock4 : public Controller, public IInputDevice
 	{
