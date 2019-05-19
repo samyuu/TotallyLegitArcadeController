@@ -36,11 +36,12 @@ namespace DivaHook::Components
 
 	void PlayerDataManager::Update()
 	{
+		ApplyCustomData();
+
 		if (false && Input::Keyboard::GetInstance()->IsTapped(VK_F12))
 		{
 			printf("PlayerDataManager::Update(): Loading config...\n");
 			LoadConfig();
-			ApplyCustomData();
 		}
 	}
 
