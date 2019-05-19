@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DivaHook", "DivaHook\DivaHook.vcxproj", "{69BCF67B-34D9-4424-A2A8-3A056E9D38A6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TotallyLegitArcadeController", "TotallyLegitArcadeController\TotallyLegitArcadeController.vcxproj", "{B50A691D-DDEC-46E0-90CE-A46EF190D2A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Prepatch", "Prepatch\Prepatch.vcxproj", "{79E6DFBD-EA77-4498-A306-9E0F13AA16A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69BCF67B-34D9-4424-A2A8-3A056E9D38A6}.Debug|x64.ActiveCfg = Debug|x64
+		{69BCF67B-34D9-4424-A2A8-3A056E9D38A6}.Debug|x64.Build.0 = Debug|x64
+		{69BCF67B-34D9-4424-A2A8-3A056E9D38A6}.Release|x64.ActiveCfg = Release|x64
+		{69BCF67B-34D9-4424-A2A8-3A056E9D38A6}.Release|x64.Build.0 = Release|x64
+		{B50A691D-DDEC-46E0-90CE-A46EF190D2A3}.Debug|x64.ActiveCfg = Debug|x64
+		{B50A691D-DDEC-46E0-90CE-A46EF190D2A3}.Debug|x64.Build.0 = Debug|x64
+		{B50A691D-DDEC-46E0-90CE-A46EF190D2A3}.Release|x64.ActiveCfg = Release|x64
+		{B50A691D-DDEC-46E0-90CE-A46EF190D2A3}.Release|x64.Build.0 = Release|x64
+		{79E6DFBD-EA77-4498-A306-9E0F13AA16A1}.Debug|x64.ActiveCfg = Debug|x64
+		{79E6DFBD-EA77-4498-A306-9E0F13AA16A1}.Debug|x64.Build.0 = Debug|x64
+		{79E6DFBD-EA77-4498-A306-9E0F13AA16A1}.Release|x64.ActiveCfg = Release|x64
+		{79E6DFBD-EA77-4498-A306-9E0F13AA16A1}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41A2E0D2-365A-43B8-BA48-A9A9A4B78CFD}
+	EndGlobalSection
+EndGlobal

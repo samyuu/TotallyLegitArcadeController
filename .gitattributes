@@ -1,0 +1,20 @@
+# Source files
+*.c text diff=cpp
+*.cc text diff=cpp
+*.cxx text diff=cpp
+*.cpp text diff=cpp
+*.c++ text diff=cpp
+*.hpp text diff=cpp
+*.h text diff=cpp
+*.h++ text diff=cpp
+*.hh text diff=cpp
+
+# Compiled Object files
+*.slo binary
+*.lo binary
+*.o binary
+*.obj binary
+
+# Precompiled Headers
+*.gch binary
+*.pch binary

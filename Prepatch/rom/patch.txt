@@ -1,0 +1,48 @@
+// patch.txt for Hatsune Miku Project DIVA Arcade Future Tone
+// Version 7.10.00 (VERSION B/REVISION 3)
+// 2018-09-14T 14:26:44+09:00
+# file:			patch.txt
+# author:		samyuu
+# version:		1.00.00
+# date:			2019/03/17
+# image_base:	0x140000C00
+
+// Address         : Length : Original bytes                : Patched bytes
+
+// Use GLUT_CURSOR_RIGHT_ARROW instead of GLUT_CURSOR_NONE
+0x000000014019341B : 0x0001 : 65                            : 00
+
+// Disable the keychip time bomb
+0x0000000140210820 : 0x0006	: 40 53 48 83 EC 20				: B8 00 00 00 00 C3
+
+// Always return true for the SelCredit enter SelPv check
+0x0000000140393610 : 0x0006 : 40 53 48 83 EC 20             : B0 01 C3 90 90 90
+
+// Just completely ignore all SYSTEM_STARTUP errors
+0x00000001403F5080 : 0x0001 : 40                            : C3
+
+// Always exit TASK_MODE_APP_ERROR on the first frame
+0x00000001403F73A7 : 0x0002 : 74 26                         : 90 90
+0x00000001403F73C3 : 0x0003 : 0F 45 CA                      : 89 D1 90
+
+// Ignore the EngineClear variable to clear the framebuffer at all resolutions
+0x0000000140501480 : 0x0002 : 74 0C                         : 90 90
+0x0000000140501515 : 0x0002 : 74 2F                         : 90 90
+
+// Don't update the touch slider state so we can write our own
+0x000000014061579B : 0x0009 : 89 41 F4 8B 42 E0 89 41 F8 	: 90 90 90 8B 42 E0 90 90 90
+
+// Write ram files to the current directory instead of Y:/SBZV/ram
+0x000000014066CF09 : 0x0003 : 0F 85 D7                      : E9 D8 00
+
+// *But of course we have a valid keychip*, return true
+0x000000014066E820 : 0x0006 : 0F B6 05 E3 65 62             : B8 01 00 00 00 C3
+
+// Skip parts of the network check state
+0x00000001406717B1 : 0x0004 : 0F 85 21 03 					: E9 22 03 00
+
+// Set the initial DHCP WAIT timer value to 0
+0x00000001406724E7 : 0x0002 : A0 8C                         : 00 00
+
+// Ignore SYSTEM_STARTUP Location Server checks
+0x00000001406732A2 : 0x0002 : 75 1E                         : 90 90
