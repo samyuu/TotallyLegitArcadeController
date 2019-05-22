@@ -153,6 +153,9 @@
     <ClInclude Include="src\Components\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Components\StageManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\EmulatorComponent.cpp">
@@ -261,6 +264,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components\ComponentsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Components\StageManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

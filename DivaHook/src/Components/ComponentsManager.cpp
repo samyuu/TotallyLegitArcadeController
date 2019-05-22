@@ -5,6 +5,7 @@
 #include "SysTimer.h"
 #include "PlayerDataManager.h"
 #include "FrameRateManager.h"
+#include "StageManager.h"
 #include "FastLoader.h"
 #include "../FileSystem/ConfigFile.h"
 #include "../MainModule.h"
@@ -34,6 +35,7 @@ namespace DivaHook::Components
 			new SysTimer(),
 			new PlayerDataManager(),
 			new FrameRateManager(),
+			new StageManager(),
 			new FastLoader(),
 		};
 

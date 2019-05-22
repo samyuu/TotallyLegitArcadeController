@@ -1,6 +1,6 @@
 #include "Injection/DllInjector.h"
 
-const char* TLAC_VERSION = "1.00.00";
+const char* TLAC_VERSION = "1.10.00";
 
 const std::string DIVA_PROCESS_NAME = "diva.exe";
 const std::string DIVA_HOOK_DLL_NAME = "divahook.dll";
