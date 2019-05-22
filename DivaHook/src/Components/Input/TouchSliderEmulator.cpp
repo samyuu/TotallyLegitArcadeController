@@ -36,7 +36,7 @@ namespace DivaHook::Components
 		return "touch_slider_emulator";
 	}
 
-	void TouchSliderEmulator::Initialize()
+	void TouchSliderEmulator::Initialize(ComponentsManager*)
 	{
 		sliderState = (TouchSliderState*)SLIDER_CTRL_TASK_ADDRESS;
 

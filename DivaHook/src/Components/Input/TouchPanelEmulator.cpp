@@ -21,7 +21,7 @@ namespace DivaHook::Components
 		return "touch_panel_emulator";
 	}
 
-	void TouchPanelEmulator::Initialize()
+	void TouchPanelEmulator::Initialize(ComponentsManager*)
 	{
 		state = GetTouchStatePtr((void*)TASK_TOUCH_ADDRESS);
 	}

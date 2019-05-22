@@ -19,7 +19,11 @@ namespace DivaHook::Components
 		void OnFocusLost();
 		void Dispose();
 
+		inline bool GetIsInputEmulatorUsed() { return isInputEmulatorUsed; };
+		inline void SetIsInputEmulatorUsed(bool value) { isInputEmulatorUsed = value; };
+
 	private:
+		bool isInputEmulatorUsed = false;
 		float elpasedTime;
 		Utilities::Stopwatch updateStopwatch;
 		std::vector<EmulatorComponent*> components;

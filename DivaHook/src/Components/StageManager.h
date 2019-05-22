@@ -1,16 +1,14 @@
 #pragma once
 #include "EmulatorComponent.h"
+#include <stdint.h>
 
 namespace DivaHook::Components
 {
-	class SysTimer : public EmulatorComponent
+	class StageManager : public EmulatorComponent
 	{
-		const int SYS_TIME_FACTOR = 60;
-		const int SEL_PV_FREEZE_TIME = 39;
-
 	public:
-		SysTimer();
-		~SysTimer();
+		StageManager();
+		~StageManager();
 
 		virtual const char* GetDisplayName() override;
 
@@ -18,8 +16,6 @@ namespace DivaHook::Components
 		virtual void Update() override;
 
 	private:
-		int* selPvTime;
-		int* GetSysTimePtr(void *address);
+		int32_t GetPlayCount();
 	};
 }
-

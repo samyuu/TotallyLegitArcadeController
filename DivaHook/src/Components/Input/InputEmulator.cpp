@@ -1,6 +1,7 @@
 #include <iostream>
 #include "windows.h"
 #include "InputEmulator.h"
+#include "../ComponentsManager.h"
 #include "../../Constants.h"
 #include "../../MainModule.h"
 #include "../../Input/Mouse/Mouse.h"
@@ -46,8 +47,10 @@ namespace DivaHook::Components
 		return "input_emulator";
 	}
 
-	void InputEmulator::Initialize()
+	void InputEmulator::Initialize(ComponentsManager* manager)
 	{
+		manager->SetIsInputEmulatorUsed(true);
+
 		inputState = GetInputStatePtr((void*)INPUT_STATE_PTR_ADDRESS);
 		inputState->HideCursor();
 

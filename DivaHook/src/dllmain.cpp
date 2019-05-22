@@ -23,7 +23,6 @@ const wchar_t *MessageWindowName = TEXT("MessageWindowTitle");
 
 namespace DivaHook
 {
-	void UpdateTick();
 	Components::ComponentsManager ComponentsManager;
 	bool DeviceConnected = true;
 	bool FirstUpdateTick = true;

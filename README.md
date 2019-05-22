@@ -18,6 +18,7 @@ The available components can be toggled inside the `components.ini` config file.
 * sys_timer
 * player_data_manager
 * frame_rate_manager
+* stage_manager
 * fast_loader
 
 ## Controls
