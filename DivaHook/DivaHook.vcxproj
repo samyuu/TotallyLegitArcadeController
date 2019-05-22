@@ -175,7 +175,6 @@
     <ClCompile Include="src\Components\Input\TouchPanelEmulator.cpp" />
     <ClCompile Include="src\Utilities\Math.cpp" />
     <ClCompile Include="src\Utilities\Operations.cpp" />
-    <ClCompile Include="src\Components\Input\TouchPanelState.cpp" />
     <ClCompile Include="src\Components\SysTimer.cpp" />
     <ClCompile Include="src\Utilities\Stopwatch.cpp" />
     <ClCompile Include="src\FileSystem\TextFile.cpp" />

@@ -33,7 +33,7 @@ namespace DivaHook::Components
 
 		virtual const char* GetDisplayName() override;
 
-		virtual void Initialize() override;
+		virtual void Initialize(ComponentsManager*) override;
 		virtual void Update() override;
 		virtual void UpdateInput() override;
 

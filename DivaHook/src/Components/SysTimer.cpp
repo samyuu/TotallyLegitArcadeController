@@ -16,7 +16,7 @@ namespace DivaHook::Components
 		return "sys_timer";
 	}
 
-	void SysTimer::Initialize()
+	void SysTimer::Initialize(ComponentsManager*)
 	{
 		selPvTime = GetSysTimePtr((void*)SEL_PV_TIME_ADDRESS);
 	}

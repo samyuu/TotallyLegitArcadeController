@@ -19,7 +19,7 @@ namespace DivaHook::Components
 		return "frame_rate_manager";
 	}
 
-	void FrameRateManager::Initialize()
+	void FrameRateManager::Initialize(ComponentsManager*)
 	{
 		pvFrameRate = (float*)PV_FRAME_RATE_ADDRESS;
 		frameSpeed = (float*)FRAME_SPEED_ADDRESS;

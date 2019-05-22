@@ -188,9 +188,6 @@
     <ClCompile Include="src\Components\FrameRateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components\Input\TouchPanelState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Components\Input\TouchSliderEmulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

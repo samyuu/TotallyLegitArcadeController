@@ -8,11 +8,14 @@
 #include "FastLoader.h"
 #include "../FileSystem/ConfigFile.h"
 #include "../MainModule.h"
+#include "../Constants.h"
 
 using ConfigFile = DivaHook::FileSystem::ConfigFile;
 
 namespace DivaHook::Components
 {
+	typedef void EngineUpdateInput(void*);
+
 	ComponentsManager::ComponentsManager()
 	{
 	}
@@ -90,7 +93,7 @@ namespace DivaHook::Components
 		updateStopwatch.Start();
 
 		for (auto& component : components)
-			component->Initialize();
+			component->Initialize(this);
 	}
 
 	void ComponentsManager::Update()
@@ -106,6 +109,15 @@ namespace DivaHook::Components
 
 	void ComponentsManager::UpdateInput()
 	{
+		if (!GetIsInputEmulatorUsed())
+		{
+			uint64_t* inputStatePtr = (uint64_t*)INPUT_STATE_PTR_ADDRESS;
+
+			// poll input using the original PollInput function we overwrote with the update hook instead
+			if (inputStatePtr != nullptr)
+				((EngineUpdateInput*)ENGINE_UPDATE_INPUT_ADDRESS)((void*)*inputStatePtr);
+		}
+
 		for (auto& component : components)
 			component->UpdateInput();
 	}

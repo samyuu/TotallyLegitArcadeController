@@ -17,7 +17,7 @@ namespace DivaHook::Components
 		return "fast_loader";
 	}
 
-	void FastLoader::Initialize()
+	void FastLoader::Initialize(ComponentsManager*)
 	{
 	}
 

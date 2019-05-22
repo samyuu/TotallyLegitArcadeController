@@ -25,7 +25,7 @@ namespace DivaHook::Components
 		return "player_data_manager";
 	}
 
-	void PlayerDataManager::Initialize()
+	void PlayerDataManager::Initialize(ComponentsManager*)
 	{
 		playerData = (PlayerData*)PLAYER_DATA_ADDRESS;
 

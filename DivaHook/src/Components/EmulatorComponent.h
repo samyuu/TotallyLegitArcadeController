@@ -2,6 +2,8 @@
 
 namespace DivaHook::Components
 {
+	class ComponentsManager;
+
 	class EmulatorComponent
 	{
 	public:
@@ -10,7 +12,7 @@ namespace DivaHook::Components
 
 		virtual const char* GetDisplayName() = 0;
 		
-		virtual void Initialize() = 0;
+		virtual void Initialize(ComponentsManager*) = 0;
 		virtual void Update() = 0;
 
 		virtual void UpdateInput() {};
