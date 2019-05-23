@@ -23,6 +23,9 @@ namespace DivaHook::Input::KeyConfig
 		{ "Minus", VK_SUBTRACT },
 		{ "Divide", VK_DIVIDE },
 		{ "Multiply", VK_MULTIPLY },
+		{ "Comma", VK_OEM_COMMA },
+		{ "Period", VK_OEM_PERIOD },
+		{ "Slash", VK_OEM_2 },
 		// F-Keys
 		{ "F1", VK_F1 },
 		{ "F2", VK_F2 },
