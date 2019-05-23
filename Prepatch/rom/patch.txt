@@ -46,3 +46,6 @@
 
 // Ignore SYSTEM_STARTUP Location Server checks
 0x00000001406732A2 : 0x0002 : 75 1E                         : 90 90
+
+// Audio Fix (use 2 channels instead of 4)
+//0x0000000140A85AC0 : 0x001 : 04 : 02
