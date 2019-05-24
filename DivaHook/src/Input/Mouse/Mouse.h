@@ -22,9 +22,11 @@ namespace DivaHook::Input
 		long GetDeltaMouseWheel();
 		
 		bool HasMoved();
-		bool ScrolledUp();
-		bool ScrolledDown();
-		
+		bool GetIsScrolledUp();
+		bool GetIsScrolledDown();
+		bool GetWasScrolledUp();
+		bool GetWasScrolledDown();
+
 		void SetPosition(int x, int y);
 
 	private:

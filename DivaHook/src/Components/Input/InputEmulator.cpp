@@ -4,9 +4,8 @@
 #include "../ComponentsManager.h"
 #include "../../Constants.h"
 #include "../../MainModule.h"
-#include "../../Input/Mouse/Mouse.h"
-#include "../../Input/Keyboard/Keyboard.h"
 #include "../../Input/Bindings/KeyboardBinding.h"
+#include "../../Input/Bindings/MouseBinding.h"
 #include "../../Input/Bindings/Ds4Binding.h"
 #include "../../Input/KeyConfig/Config.h"
 #include "../../Utilities/Operations.h"
@@ -78,6 +77,11 @@ namespace DivaHook::Components
 		Config::BindConfigKeys(configFile.ConfigMap, "JVS_CIRCLE", *MaruBinding, { "D", "L" });
 		Config::BindConfigKeys(configFile.ConfigMap, "JVS_LEFT", *LeftBinding, { "Q", "U" });
 		Config::BindConfigKeys(configFile.ConfigMap, "JVS_RIGHT", *RightBinding, { "E", "O" });
+
+		mouseScrollPvSelection = configFile.GetBooleanValue("mouse_scroll_pv_selection");
+
+		//LeftBinding->AddBinding(new MouseBinding(MouseAction_ScrollUp));
+		//RightBinding->AddBinding(new MouseBinding(MouseAction_ScrollDown));
 	}
 
 	void InputEmulator::Update()
@@ -113,6 +117,19 @@ namespace DivaHook::Components
 		//inputState->Down.Buttons ^= inputState->Tapped.Buttons;
 
 		UpdateDwGuiInput();
+	
+		if (mouseScrollPvSelection)
+		{
+			// I originally wanted to use a MouseBinding set to JVS_LEFT / JVS_RIGHT
+			// but that ended up beeing too slow because a PV slot can only be scrolled to once the scroll animation has finished playing
+			int* slotsToScroll = (int*)PV_SEL_SLOTS_TO_SCROLL;
+
+			auto mouse = Mouse::GetInstance();
+			if (mouse->GetIsScrolledUp())
+				*slotsToScroll -= 1;
+			if (mouse->GetIsScrolledDown())
+				*slotsToScroll += 1;
+		}
 	}
 
 	void InputEmulator::UpdateDwGuiInput()
@@ -133,10 +150,10 @@ namespace DivaHook::Components
 		for (int i = 0; i < sizeof(keyBits) / sizeof(KeyBit); i++)
 			UpdateInputBit(keyBits[i].Bit, keyBits[i].KeyCode);
 
-		for (int i = INPUT_TAPPED; i <= INPUT_INTERVAL_TAPPED; i++)
+		for (int i = InputBufferType_Tapped; i <= InputBufferType_IntervalTapped; i++)
 		{
-			inputState->SetBit(scrollUpBit, mouse->ScrolledUp(), (InputBufferType)i);
-			inputState->SetBit(scrollDownBit, mouse->ScrolledDown(), (InputBufferType)i);
+			inputState->SetBit(scrollUpBit, mouse->GetIsScrolledUp(), (InputBufferType)i);
+			inputState->SetBit(scrollDownBit, mouse->GetIsScrolledDown(), (InputBufferType)i);
 		}
 	}
 
@@ -205,10 +222,10 @@ namespace DivaHook::Components
 	{
 		auto keyboard = Keyboard::GetInstance();
 
-		inputState->SetBit(bit, keyboard->IsTapped(keycode), INPUT_TAPPED);
-		inputState->SetBit(bit, keyboard->IsReleased(keycode), INPUT_RELEASED);
-		inputState->SetBit(bit, keyboard->IsDown(keycode), INPUT_DOWN);
-		inputState->SetBit(bit, keyboard->IsDoubleTapped(keycode), INPUT_DOUBLE_TAPPED);
-		inputState->SetBit(bit, keyboard->IsIntervalTapped(keycode), INPUT_INTERVAL_TAPPED);
+		inputState->SetBit(bit, keyboard->IsTapped(keycode), InputBufferType_Tapped);
+		inputState->SetBit(bit, keyboard->IsReleased(keycode), InputBufferType_Released);
+		inputState->SetBit(bit, keyboard->IsDown(keycode), InputBufferType_Down);
+		inputState->SetBit(bit, keyboard->IsDoubleTapped(keycode), InputBufferType_DoubleTapped);
+		inputState->SetBit(bit, keyboard->IsIntervalTapped(keycode), InputBufferType_IntervalTapped);
 	}
 }

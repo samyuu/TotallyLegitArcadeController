@@ -40,6 +40,7 @@ namespace DivaHook::Components
 		virtual void OnFocusLost() override;
 
 	private:
+		bool mouseScrollPvSelection = false;
 		const uint32_t scrollUpBit = 99;
 		const uint32_t scrollDownBit = 100;
 

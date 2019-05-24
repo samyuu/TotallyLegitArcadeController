@@ -60,7 +60,7 @@ namespace DivaHook::Components
 			auto name = allComponents[i]->GetDisplayName();
 			//printf("ComponentsManager::ParseAddComponents(): searching name: %s\n", name);
 
-			if (componentsConfig.TryGetValue(name, value))
+			if (componentsConfig.TryGetValue(name, &value))
 			{
 				//printf("ComponentsManager::ParseAddComponents(): %s found\n", name);
 

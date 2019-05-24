@@ -36,19 +36,19 @@ namespace DivaHook::Components
 	{
 		switch (inputType)
 		{
-		case INPUT_TAPPED: 
+		case InputBufferType_Tapped: 
 			return (uint8_t*)&Tapped;
 
-		case INPUT_RELEASED:
+		case InputBufferType_Released:
 			return (uint8_t*)&Released;
 
-		case INPUT_DOWN: 
+		case InputBufferType_Down: 
 			return (uint8_t*)&Down;
 
-		case INPUT_DOUBLE_TAPPED: 
+		case InputBufferType_DoubleTapped: 
 			return (uint8_t*)&DoubleTapped;
 
-		case INPUT_INTERVAL_TAPPED:
+		case InputBufferType_IntervalTapped:
 			return (uint8_t*)&IntervalTapped;
 
 		default:
