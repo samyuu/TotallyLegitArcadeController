@@ -121,7 +121,7 @@ namespace DivaHook::Components
 		if (mouseScrollPvSelection)
 		{
 			// I originally wanted to use a MouseBinding set to JVS_LEFT / JVS_RIGHT
-			// but that ended up beeing too slow because a PV slot can only be scrolled to once the scroll animation has finished playing
+			// but that ended up being too slow because a PV slot can only be scrolled to once the scroll animation has finished playing
 			int* slotsToScroll = (int*)PV_SEL_SLOTS_TO_SCROLL;
 
 			auto mouse = Mouse::GetInstance();
