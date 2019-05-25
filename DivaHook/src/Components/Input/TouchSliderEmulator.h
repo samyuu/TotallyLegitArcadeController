@@ -35,7 +35,7 @@ namespace DivaHook::Components
 		virtual void OnFocusLost() override;
 
 	private:
-		const float sliderSpeed = 750.0f;
+		const float sliderSpeed = 500.0f;
 		float sliderIncrement;
 
 		TouchSliderState *sliderState;
