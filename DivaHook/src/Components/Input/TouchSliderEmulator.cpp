@@ -1,4 +1,5 @@
 #include "TouchSliderEmulator.h"
+#include "../ComponentsManager.h"
 #include "../../Constants.h"
 #include "../../MainModule.h"
 #include "../../Input/Mouse/Mouse.h"
@@ -36,8 +37,9 @@ namespace DivaHook::Components
 		return "touch_slider_emulator";
 	}
 
-	void TouchSliderEmulator::Initialize(ComponentsManager*)
+	void TouchSliderEmulator::Initialize(ComponentsManager* manager)
 	{
+		componentsManager = manager;
 		sliderState = (TouchSliderState*)SLIDER_CTRL_TASK_ADDRESS;
 
 		LeftSideSlideLeft = new Binding();
@@ -63,6 +65,9 @@ namespace DivaHook::Components
 
 	void TouchSliderEmulator::UpdateInput()
 	{
+		if (!componentsManager->GetUpdateGameInput() || componentsManager->IsDwGuiActive())
+			return;
+
 		sliderIncrement = GetElapsedTime() / sliderSpeed;
 
 		const float sensorStep = (1.0f / SLIDER_SENSORS);

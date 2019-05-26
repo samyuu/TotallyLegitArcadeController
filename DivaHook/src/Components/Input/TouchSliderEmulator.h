@@ -35,6 +35,7 @@ namespace DivaHook::Components
 		virtual void OnFocusLost() override;
 
 	private:
+		ComponentsManager* componentsManager;
 		const float sliderSpeed = 750.0f;
 		float sliderIncrement;
 

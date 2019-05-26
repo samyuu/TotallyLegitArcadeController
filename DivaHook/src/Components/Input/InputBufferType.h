@@ -9,5 +9,6 @@ namespace DivaHook::Components
 		InputBufferType_Down,
 		InputBufferType_DoubleTapped,
 		InputBufferType_IntervalTapped,
+		InputBufferType_Max,
 	};
 }

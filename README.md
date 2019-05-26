@@ -20,6 +20,8 @@ The available components can be toggled inside the `components.ini` config file.
 * frame_rate_manager
 * stage_manager
 * fast_loader
+* camera_controller
+* debug_component
 
 ## Controls
 Input bindings can be set inside the `keyconfig.ini` config file. Currently supported are keyboard and DualShock 4 controller input.
@@ -29,6 +31,10 @@ Key and button names are listed inside this config.
 If enabled the PlayerDataManager writes constant values from the `playerdata.ini` config file to the game's memory.
 This allows the user to set their player name, a level plate ID to be shown during the song select, equip a skin to be loaded during gameplay and button / slide sounds to be applied to all songs played.
 This config file **must be** encoded using UTF-8.
+
+## Debug Component
+This component enables diva's internal dw_gui and makes the hidden DATA_TESTs accessible.
+The current game state can be changed using the F4 - F8 keys with F6 being a recreation of the original DATA_TEST_MAIN inside the console which can be controlled using the up / down arrow + enter key.
 
 # Usage
 First **once per update** patch a clean `diva.exe` using the `prepatch.exe` program by passing the `diva.exe` path to it as its first command line argument; This can be done by dragging the diva executable on top of the prepatch executable inside the windows file explorer. It is strongly recommended to always create a backup of the original diva executable first.

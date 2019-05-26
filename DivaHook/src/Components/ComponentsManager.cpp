@@ -1,15 +1,16 @@
 #include "ComponentsManager.h"
+#include "../FileSystem/ConfigFile.h"
+#include "../MainModule.h"
 #include "Input/InputEmulator.h"
 #include "Input/TouchSliderEmulator.h"
 #include "Input/TouchPanelEmulator.h"
 #include "SysTimer.h"
 #include "PlayerDataManager.h"
 #include "FrameRateManager.h"
-#include "StageManager.h"
 #include "FastLoader.h"
-#include "../FileSystem/ConfigFile.h"
-#include "../MainModule.h"
-#include "../Constants.h"
+#include "StageManager.h"
+#include "CameraController.h"
+#include "DebugComponent.h"
 
 using ConfigFile = DivaHook::FileSystem::ConfigFile;
 
@@ -35,8 +36,10 @@ namespace DivaHook::Components
 			new SysTimer(),
 			new PlayerDataManager(),
 			new FrameRateManager(),
-			new StageManager(),
 			new FastLoader(),
+			new StageManager(),
+			new CameraController(),
+			new DebugComponent(),
 		};
 
 		ConfigFile componentsConfig(MainModule::GetModuleDirectory(), COMPONENTS_CONFIG_FILE_NAME);
@@ -91,6 +94,8 @@ namespace DivaHook::Components
 
 	void ComponentsManager::Initialize()
 	{
+		dwGuiDisplay = (DwGuiDisplay*)*(uint64_t*)DW_GUI_DISPLAY_INSTANCE_PTR_ADDRESS;
+		
 		ParseAddComponents();
 		updateStopwatch.Start();
 
