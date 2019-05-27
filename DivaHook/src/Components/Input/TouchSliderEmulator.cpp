@@ -56,6 +56,11 @@ namespace DivaHook::Components
 
 		Config::BindConfigKeys(configFile.ConfigMap, "RIGHT_SIDE_SLIDE_LEFT", *RightSideSlideLeft, { "U" });
 		Config::BindConfigKeys(configFile.ConfigMap, "RIGHT_SIDE_SLIDE_RIGHT", *RightSideSlideRight, { "O" });
+
+		float touchSliderEmulationSpeed = configFile.GetFloatValue("touch_slider_emulation_speed");
+	
+		if (touchSliderEmulationSpeed != 0.0f)
+			sliderSpeed = touchSliderEmulationSpeed;
 	}
 
 	void TouchSliderEmulator::Update()
@@ -70,7 +75,7 @@ namespace DivaHook::Components
 
 		sliderIncrement = GetElapsedTime() / sliderSpeed;
 
-		const float sensorStep = (1.0f / SLIDER_SENSORS);
+		constexpr float sensorStep = (1.0f / SLIDER_SENSORS);
 
 		EmulateSliderInput(LeftSideSlideLeft, LeftSideSlideRight, ContactPoints[0], 0.0f, 0.5f);
 		EmulateSliderInput(RightSideSlideLeft, RightSideSlideRight, ContactPoints[1], 0.5f + sensorStep, 1.0f + sensorStep);

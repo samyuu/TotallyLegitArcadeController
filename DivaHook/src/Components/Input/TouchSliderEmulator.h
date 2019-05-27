@@ -36,7 +36,7 @@ namespace DivaHook::Components
 
 	private:
 		ComponentsManager* componentsManager;
-		const float sliderSpeed = 750.0f;
+		float sliderSpeed = 750.0f;
 		float sliderIncrement;
 
 		TouchSliderState *sliderState;
