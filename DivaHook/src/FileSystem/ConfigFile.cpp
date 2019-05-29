@@ -39,6 +39,14 @@ namespace DivaHook::FileSystem
 		return found ? pair->second == "true" : false;
 	}
 
+	float ConfigFile::GetFloatValue(const std::string & key)
+	{
+		auto pair = ConfigMap.find(key);
+		bool found = pair != ConfigMap.end();
+
+		return found ? (float)atof(pair->second.c_str()) : 0.0f;
+	}
+
 	void ConfigFile::Parse(std::ifstream &fileStream)
 	{
 		std::string line;

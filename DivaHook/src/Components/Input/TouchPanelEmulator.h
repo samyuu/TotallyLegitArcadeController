@@ -17,6 +17,8 @@ namespace DivaHook::Components
 		virtual void UpdateInput() override;
 
 	private:
+		ComponentsManager* componentsManager;
+
 		TouchPanelState* state;
 		TouchPanelState* GetTouchStatePtr(void *address);
 	};

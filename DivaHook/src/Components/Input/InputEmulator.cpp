@@ -37,8 +37,6 @@ namespace DivaHook::Components
 
 		delete LeftBinding;
 		delete RightBinding;
-
-		Config::Keymap.clear();
 	}
 
 	const char* InputEmulator::GetDisplayName()
@@ -48,7 +46,8 @@ namespace DivaHook::Components
 
 	void InputEmulator::Initialize(ComponentsManager* manager)
 	{
-		manager->SetIsInputEmulatorUsed(true);
+		componentsManager = manager;
+		componentsManager->SetIsInputEmulatorUsed(true);
 
 		inputState = GetInputStatePtr((void*)INPUT_STATE_PTR_ADDRESS);
 		inputState->HideCursor();
@@ -79,9 +78,6 @@ namespace DivaHook::Components
 		Config::BindConfigKeys(configFile.ConfigMap, "JVS_RIGHT", *RightBinding, { "E", "O" });
 
 		mouseScrollPvSelection = configFile.GetBooleanValue("mouse_scroll_pv_selection");
-
-		//LeftBinding->AddBinding(new MouseBinding(MouseAction_ScrollUp));
-		//RightBinding->AddBinding(new MouseBinding(MouseAction_ScrollDown));
 	}
 
 	void InputEmulator::Update()
@@ -97,6 +93,22 @@ namespace DivaHook::Components
 	}
 
 	void InputEmulator::UpdateInput()
+	{
+		if (!componentsManager->GetUpdateGameInput())
+			return;
+
+		if (!componentsManager->IsDwGuiActive())
+		{
+			UpdateJvsInput();
+
+			if (mouseScrollPvSelection && !componentsManager->IsDwGuiHovered())
+				UpdateMousePvScroll();
+		}
+
+		UpdateDwGuiInput();
+	}
+
+	void InputEmulator::UpdateJvsInput()
 	{
 		auto tappedFunc = [](void* binding) { return ((Binding*)binding)->AnyTapped(); };
 		auto releasedFunc = [](void* binding) { return ((Binding*)binding)->AnyReleased(); };
@@ -115,21 +127,6 @@ namespace DivaHook::Components
 
 		// repress held down buttons to not block input
 		//inputState->Down.Buttons ^= inputState->Tapped.Buttons;
-
-		UpdateDwGuiInput();
-	
-		if (mouseScrollPvSelection)
-		{
-			// I originally wanted to use a MouseBinding set to JVS_LEFT / JVS_RIGHT
-			// but that ended up being too slow because a PV slot can only be scrolled to once the scroll animation has finished playing
-			int* slotsToScroll = (int*)PV_SEL_SLOTS_TO_SCROLL;
-
-			auto mouse = Mouse::GetInstance();
-			if (mouse->GetIsScrolledUp())
-				*slotsToScroll -= 1;
-			if (mouse->GetIsScrolledDown())
-				*slotsToScroll += 1;
-		}
 	}
 
 	void InputEmulator::UpdateDwGuiInput()
@@ -150,11 +147,24 @@ namespace DivaHook::Components
 		for (int i = 0; i < sizeof(keyBits) / sizeof(KeyBit); i++)
 			UpdateInputBit(keyBits[i].Bit, keyBits[i].KeyCode);
 
-		for (int i = InputBufferType_Tapped; i <= InputBufferType_IntervalTapped; i++)
+		for (int i = InputBufferType_Tapped; i < InputBufferType_Max; i++)
 		{
 			inputState->SetBit(scrollUpBit, mouse->GetIsScrolledUp(), (InputBufferType)i);
 			inputState->SetBit(scrollDownBit, mouse->GetIsScrolledDown(), (InputBufferType)i);
 		}
+	}
+
+	void InputEmulator::UpdateMousePvScroll()
+	{
+		// I originally wanted to use a MouseBinding set to JVS_LEFT / JVS_RIGHT
+		// but that ended up being too slow because a PV slot can only be scrolled to once the scroll animation has finished playing
+		int* slotsToScroll = (int*)PV_SEL_SLOTS_TO_SCROLL;
+
+		auto mouse = Mouse::GetInstance();
+		if (mouse->GetIsScrolledUp())
+			*slotsToScroll -= 1;
+		if (mouse->GetIsScrolledDown())
+			*slotsToScroll += 1;
 	}
 
 	InputState* InputEmulator::GetInputStatePtr(void *address)
