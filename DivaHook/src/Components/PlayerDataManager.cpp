@@ -54,6 +54,13 @@ namespace DivaHook::Components
 			*(uint8_t*)(SET_DEFAULT_PLAYER_DATA_ADDRESS) = RET_OPCODE;
 		}
 		VirtualProtect((void*)SET_DEFAULT_PLAYER_DATA_ADDRESS, sizeof(uint8_t), oldProtect, &oldProtect);
+		
+		// allow player to select the module
+		VirtualProtect((void*)CHECK_SOMETHING_SET_MODULE_ADDRESS, sizeof(uint8_t), PAGE_EXECUTE_READWRITE, &oldProtect);
+		{
+			*(uint8_t*)(CHECK_SOMETHING_SET_MODULE_ADDRESS) = JNE_OPCODE; //je to jne
+		}
+		VirtualProtect((void*)CHECK_SOMETHING_SET_MODULE_ADDRESS, sizeof(uint8_t), oldProtect, &oldProtect);
 	}
 
 	void PlayerDataManager::LoadConfig()
@@ -107,6 +114,13 @@ namespace DivaHook::Components
 		setIfNotEqual(&playerData->skin_equip, customPlayerData->SkinEquip, 0);
 		setIfNotEqual(&playerData->btn_se_equip, customPlayerData->BtnSeEquip, -1);
 		setIfNotEqual(&playerData->chainslide_se_equip, customPlayerData->ChainslideSeEquip, -1);
+		
+		playerData->use_card = 1; // required to allow for module selection
+
+		//1411A8990..1411A8A0C
+		for (uint64_t i = MODULE_TABLE_START; i <= MODULE_TABLE_END; i++) {
+			*((byte*)i) = 0xFF;
+		}
 
 		if (customPlayerData->PlayerName != nullptr)
 		{
