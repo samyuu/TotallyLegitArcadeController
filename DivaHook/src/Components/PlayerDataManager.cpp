@@ -54,6 +54,28 @@ namespace DivaHook::Components
 			*(uint8_t*)(SET_DEFAULT_PLAYER_DATA_ADDRESS) = RET_OPCODE;
 		}
 		VirtualProtect((void*)SET_DEFAULT_PLAYER_DATA_ADDRESS, sizeof(uint8_t), oldProtect, &oldProtect);
+		
+		// allow player to select the module and extra item
+		VirtualProtect((void*)MODSELECTOR_CHECK_FUNCTION_ERRRET_ADDRESS, sizeof(byte)*2, PAGE_EXECUTE_READWRITE, &oldProtect);
+		{
+			*(byte*)(MODSELECTOR_CHECK_FUNCTION_ERRRET_ADDRESS) = 0xB0; // xor al,al -> ld al,1
+			*(byte*)(MODSELECTOR_CHECK_FUNCTION_ERRRET_ADDRESS + 0x1) = 0x01;
+		}
+		VirtualProtect((void*)MODSELECTOR_CHECK_FUNCTION_ERRRET_ADDRESS, sizeof(byte)*2, oldProtect, &oldProtect);
+
+		// fix annoying behavior of closing after changing module or item (don't yet know the reason, maybe NW/Card checks)
+		{
+			VirtualProtect((void*)MODSELECTOR_CLOSE_AFTER_MODULE, sizeof(uint8_t), PAGE_EXECUTE_READWRITE, &oldProtect);
+			{
+				*(uint8_t*)(MODSELECTOR_CLOSE_AFTER_MODULE) = JNE_OPCODE;
+			}
+			VirtualProtect((void*)MODSELECTOR_CLOSE_AFTER_MODULE, sizeof(uint8_t), oldProtect, &oldProtect);
+			VirtualProtect((void*)MODSELECTOR_CLOSE_AFTER_CUSTOMIZE, sizeof(uint8_t), PAGE_EXECUTE_READWRITE, &oldProtect);
+			{
+				*(uint8_t*)(MODSELECTOR_CLOSE_AFTER_CUSTOMIZE) = JNE_OPCODE;
+			}
+			VirtualProtect((void*)MODSELECTOR_CLOSE_AFTER_CUSTOMIZE, sizeof(uint8_t), oldProtect, &oldProtect);
+		}
 	}
 
 	void PlayerDataManager::LoadConfig()
@@ -93,6 +115,11 @@ namespace DivaHook::Components
 		setIfNotEqual(&playerData->btn_se_equip, customPlayerData->BtnSeEquip, -1);
 		setIfNotEqual(&playerData->slide_se_equip, customPlayerData->SlideSeEquip, -1);
 		setIfNotEqual(&playerData->chainslide_se_equip, customPlayerData->ChainslideSeEquip, -1);
+		
+		playerData->use_card = 1; // required to allow for module selection
+
+		memset((void *)MODULE_TABLE_START, 0xFF, 128);
+		memset((void*)ITEM_TABLE_START, 0xFF, 128);
 
 		if (customPlayerData->PlayerName != nullptr)
 		{
