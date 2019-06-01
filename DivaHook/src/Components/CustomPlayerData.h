@@ -10,5 +10,7 @@ namespace DivaHook::Components
 		int SkinEquip;
 		int BtnSeEquip;
 		int ChainslideSeEquip;
+		bool ShowGreatClearBorder;
+		bool ShowExcellentClearBorder;
 	};
 }
