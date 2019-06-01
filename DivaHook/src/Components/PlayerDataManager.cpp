@@ -92,6 +92,8 @@ namespace DivaHook::Components
 		customPlayerData->SkinEquip = parseInt("skin_equip");
 		customPlayerData->BtnSeEquip = parseInt("btn_se_equip");
 		customPlayerData->ChainslideSeEquip = parseInt("chainslide_se_equip");
+		customPlayerData->ShowExcellentClearBorder = config.GetBooleanValue("border_excellent");
+		customPlayerData->ShowGreatClearBorder = config.GetBooleanValue("border_great");
 	}
 
 	void PlayerDataManager::ApplyCustomData()
@@ -107,7 +109,12 @@ namespace DivaHook::Components
 		setIfNotEqual(&playerData->skin_equip, customPlayerData->SkinEquip, 0);
 		setIfNotEqual(&playerData->btn_se_equip, customPlayerData->BtnSeEquip, -1);
 		setIfNotEqual(&playerData->chainslide_se_equip, customPlayerData->ChainslideSeEquip, -1);
-
+		
+		// Display clear borders on the progress bar
+		*(byte*)(PLAYER_DATA_ADDRESS + 0xD94) = (customPlayerData->ShowExcellentClearBorder << 1) | (customPlayerData->ShowGreatClearBorder); 
+		// we all probably now need to use my new fresh updated 3912 byte PlayerInf.h file for this struct, but
+		// i'm 2lazy2doit right now :p
+		
 		if (customPlayerData->PlayerName != nullptr)
 		{
 			playerData->field_DC = 0x10;
