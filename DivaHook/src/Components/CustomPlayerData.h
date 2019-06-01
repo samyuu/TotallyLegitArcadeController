@@ -11,5 +11,7 @@ namespace DivaHook::Components
 		int BtnSeEquip;
 		int SlideSeEquip;
 		int ChainslideSeEquip;
+		bool ShowGreatClearBorder;
+		bool ShowExcellentClearBorder;
 	};
 }
