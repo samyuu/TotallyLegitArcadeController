@@ -71,7 +71,6 @@ namespace DivaHook::Components
 
 		customPlayerData = new CustomPlayerData();
 		config.TryGetValue("player_name", &customPlayerData->PlayerName);
-		config.TryGetValue("level_name", &customPlayerData->LevelName);
 
 		customPlayerData->LevelPlateId = config.GetIntegerValue("level_plate_id");
 		customPlayerData->SkinEquip = config.GetIntegerValue("skin_equip");
