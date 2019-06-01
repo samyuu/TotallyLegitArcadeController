@@ -8,6 +8,8 @@ namespace DivaHook::Input
 		POINT Position;
 		POINT RelativePosition;
 		long MouseWheel;
+		bool ScrolledUp;
+		bool ScrolledDown;
 	};
 }
 

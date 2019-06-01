@@ -4,10 +4,11 @@ namespace DivaHook::Components
 {
 	enum InputBufferType
 	{
-		INPUT_TAPPED,
-		INPUT_RELEASED,
-		INPUT_DOWN,
-		INPUT_DOUBLE_TAPPED,
-		INPUT_INTERVAL_TAPPED,
+		InputBufferType_Tapped,
+		InputBufferType_Released,
+		InputBufferType_Down,
+		InputBufferType_DoubleTapped,
+		InputBufferType_IntervalTapped,
+		InputBufferType_Max,
 	};
 }

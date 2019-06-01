@@ -9,6 +9,7 @@ namespace DivaHook::Components
 		int LevelPlateId;
 		int SkinEquip;
 		int BtnSeEquip;
+		int SlideSeEquip;
 		int ChainslideSeEquip;
 		bool ShowGreatClearBorder;
 		bool ShowExcellentClearBorder;

@@ -97,7 +97,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components\CameraController.h" />
     <ClInclude Include="src\Components\ComponentsManager.h" />
+    <ClInclude Include="src\Components\DebugComponent.h" />
     <ClInclude Include="src\Components\FastLoader.h" />
     <ClInclude Include="src\Components\CustomPlayerData.h" />
     <ClInclude Include="src\Components\GameState.h" />
@@ -112,6 +114,7 @@
     <ClInclude Include="src\Input\Bindings\Ds4Binding.h" />
     <ClInclude Include="src\Input\Bindings\IInputBinding.h" />
     <ClInclude Include="src\Input\Bindings\KeyboardBinding.h" />
+    <ClInclude Include="src\Input\Bindings\MouseBinding.h" />
     <ClInclude Include="src\Input\DirectInput\Controller.h" />
     <ClInclude Include="src\Input\DirectInput\DirectInput.h" />
     <ClInclude Include="src\Input\DirectInput\DirectInputDevice.h" />
@@ -146,7 +149,9 @@
     <ClInclude Include="src\Utilities\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\CameraController.cpp" />
     <ClCompile Include="src\Components\ComponentsManager.cpp" />
+    <ClCompile Include="src\Components\DebugComponent.cpp" />
     <ClCompile Include="src\Components\FastLoader.cpp" />
     <ClCompile Include="src\Components\Input\TouchSliderEmulator.cpp" />
     <ClCompile Include="src\Components\FrameRateManager.cpp" />
@@ -157,6 +162,7 @@
     <ClCompile Include="src\Input\Bindings\Binding.cpp" />
     <ClCompile Include="src\Input\Bindings\Ds4Binding.cpp" />
     <ClCompile Include="src\Input\Bindings\KeyboardBinding.cpp" />
+    <ClCompile Include="src\Input\Bindings\MouseBinding.cpp" />
     <ClCompile Include="src\Input\DirectInput\Controller.cpp" />
     <ClCompile Include="src\Input\DirectInput\DirectInput.cpp" />
     <ClCompile Include="src\Input\DirectInput\DirectInputDevice.cpp" />

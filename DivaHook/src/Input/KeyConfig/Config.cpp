@@ -81,6 +81,9 @@ namespace DivaHook::Input::KeyConfig
 		{ "PageDown", VK_NEXT },
 		{ "ESC",    VK_ESCAPE },
 		{ "Escape", VK_ESCAPE },
+		{ "Comma",	VK_OEM_COMMA },
+		{ "Period", VK_OEM_PERIOD },
+		{ "Slash",	VK_OEM_2 },
 	};
 
 	Ds4ButtonMap Config::Ds4Map =

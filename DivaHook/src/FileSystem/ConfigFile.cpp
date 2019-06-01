@@ -14,15 +14,37 @@ namespace DivaHook::FileSystem
 		return;
 	}
 
-	bool ConfigFile::TryGetValue(const std::string &key, std::string *&value)
+	bool ConfigFile::TryGetValue(const std::string &key, std::string **value)
 	{
 		auto pair = ConfigMap.find(key);
-
 		bool found = pair != ConfigMap.end();
 
-		value = found ? new std::string(pair->second) : nullptr;
-
+		*value = found ? new std::string(pair->second) : nullptr;
 		return found;
+	}
+
+	int ConfigFile::GetIntegerValue(const std::string& key)
+	{
+		auto pair = ConfigMap.find(key);
+		bool found = pair != ConfigMap.end();
+
+		return found ? atoi(pair->second.c_str()) : 0;
+	}
+
+	bool ConfigFile::GetBooleanValue(const std::string& key)
+	{
+		auto pair = ConfigMap.find(key);
+		bool found = pair != ConfigMap.end();
+
+		return found ? pair->second == "true" : false;
+	}
+
+	float ConfigFile::GetFloatValue(const std::string & key)
+	{
+		auto pair = ConfigMap.find(key);
+		bool found = pair != ConfigMap.end();
+
+		return found ? (float)atof(pair->second.c_str()) : 0.0f;
 	}
 
 	void ConfigFile::Parse(std::ifstream &fileStream)

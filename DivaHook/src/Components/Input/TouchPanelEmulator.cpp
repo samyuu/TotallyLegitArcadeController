@@ -1,5 +1,6 @@
 #include "TouchPanelEmulator.h"
 #include <iostream>
+#include "../ComponentsManager.h"
 #include "../../Constants.h"
 #include "../../Input/Mouse/Mouse.h"
 #include "../../Input/Keyboard/Keyboard.h"
@@ -21,8 +22,9 @@ namespace DivaHook::Components
 		return "touch_panel_emulator";
 	}
 
-	void TouchPanelEmulator::Initialize(ComponentsManager*)
+	void TouchPanelEmulator::Initialize(ComponentsManager* manager)
 	{
+		componentsManager = manager;
 		state = GetTouchStatePtr((void*)TASK_TOUCH_ADDRESS);
 	}
 
@@ -33,6 +35,9 @@ namespace DivaHook::Components
 
 	void TouchPanelEmulator::UpdateInput()
 	{
+		if (!componentsManager->GetUpdateGameInput() || componentsManager->IsDwGuiActive() || componentsManager->IsDwGuiHovered())
+			return;
+
 		// TODO: rescale TouchReaction aet position
 		auto keyboard = Keyboard::GetInstance();
 		auto pos = Mouse::GetInstance()->GetRelativePosition();

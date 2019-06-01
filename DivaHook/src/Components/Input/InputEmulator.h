@@ -40,6 +40,9 @@ namespace DivaHook::Components
 		virtual void OnFocusLost() override;
 
 	private:
+		ComponentsManager* componentsManager;
+
+		bool mouseScrollPvSelection = false;
 		const uint32_t scrollUpBit = 99;
 		const uint32_t scrollDownBit = 100;
 
@@ -74,7 +77,9 @@ namespace DivaHook::Components
 		InputState* inputState;
 		JvsButtons lastDownState;
 
+		void UpdateJvsInput();
 		void UpdateDwGuiInput();
+		void UpdateMousePvScroll();
 		InputState* GetInputStatePtr(void *address);
 		JvsButtons GetJvsButtonsState(bool(*buttonTestFunc)(void*));
 		char GetKeyState();
