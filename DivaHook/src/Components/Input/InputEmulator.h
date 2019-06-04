@@ -4,6 +4,9 @@
 #include "InputState.h"
 #include "../EmulatorComponent.h"
 #include "../../Input/Bindings/Binding.h"
+#include "../TargetState.h"
+#include "../TargetHitStates.h"
+#include "../HoldState.h"
 
 namespace DivaHook::Components
 {
@@ -76,12 +79,18 @@ namespace DivaHook::Components
 
 		InputState* inputState;
 		JvsButtons lastDownState;
+		JvsButtons heldButtons;
+
+		HoldState holdState;
+		int holdTbl[4];
 
 		void UpdateJvsInput();
 		void UpdateDwGuiInput();
 		void UpdateMousePvScroll();
+		void UpdateHoldState();
 		InputState* GetInputStatePtr(void *address);
 		JvsButtons GetJvsButtonsState(bool(*buttonTestFunc)(void*));
+		JvsButtons GetButtonFromHold(int holds[]);
 		char GetKeyState();
 
 		void UpdateInputBit(uint32_t bit, uint8_t keycode);

@@ -109,6 +109,7 @@
     <ClInclude Include="src\Components\PlayerDataManager.h" />
     <ClInclude Include="src\Components\StageManager.h" />
     <ClInclude Include="src\Components\TargetHitStates.h" />
+    <ClInclude Include="src\Components\TargetInspector.h" />
     <ClInclude Include="src\Components\TargetState.h" />
     <ClInclude Include="src\Components\TargetTypes.h" />
     <ClInclude Include="src\FileSystem\ConfigFile.h" />

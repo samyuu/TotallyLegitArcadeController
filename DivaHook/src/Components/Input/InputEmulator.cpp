@@ -22,6 +22,7 @@ namespace DivaHook::Components
 {
 	InputEmulator::InputEmulator()
 	{
+
 	}
 
 	InputEmulator::~InputEmulator()
@@ -116,6 +117,9 @@ namespace DivaHook::Components
 
 		lastDownState = inputState->Down.Buttons;
 
+		UpdateHoldState();
+		heldButtons = GetButtonFromHold(InputEmulator::holdTbl);
+
 		inputState->Tapped.Buttons = GetJvsButtonsState(tappedFunc);
 		inputState->Released.Buttons = GetJvsButtonsState(releasedFunc);
 		inputState->Down.Buttons = GetJvsButtonsState(downFunc);
@@ -123,10 +127,39 @@ namespace DivaHook::Components
 		inputState->IntervalTapped.Buttons = GetJvsButtonsState(tappedFunc);
 
 		if ((lastDownState &= inputState->Tapped.Buttons) != 0)
+		{
 			inputState->Down.Buttons ^= inputState->Tapped.Buttons;
+			if (holdState != HOLD_NONE)
+				inputState->Down.Buttons |= heldButtons;
+		}
 
 		// repress held down buttons to not block input
 		//inputState->Down.Buttons ^= inputState->Tapped.Buttons;
+	}
+
+	void InputEmulator::UpdateHoldState()
+	{
+		holdState = (HoldState)(*((int*)HOLD_STATE_ADDRESS));
+
+		for (int i = 0; i < 4; ++i)
+		{
+			holdTbl[i] = 0;
+		}
+
+		// this may not be the most elegant solution but it will do for now
+		int total = 0;
+		for (int i = 4; i > 0; --i)
+		{
+			int holdId = 1 << (i + 5);
+			if (holdId + total <= holdState)
+			{
+				total += holdId;
+				InputEmulator::holdTbl[i - 1] = 1;
+			}
+
+			if (total == holdState)
+				break;
+		}
 	}
 
 	void InputEmulator::UpdateDwGuiInput()
@@ -201,6 +234,22 @@ namespace DivaHook::Components
 		return buttons;
 	}
 
+	JvsButtons InputEmulator::GetButtonFromHold(int holds[])
+	{
+		JvsButtons buttons = JVS_NONE;
+
+		if (holds[0] == 1)
+			buttons |= JVS_TRIANGLE;
+		if (holds[1] == 1)
+			buttons |= JVS_CIRCLE;
+		if (holds[2] == 1)
+			buttons |= JVS_CROSS;
+		if (holds[3] == 1)
+			buttons |= JVS_SQUARE;
+
+		return buttons;
+	}
+
 	char InputEmulator::GetKeyState()
 	{
 		auto keyboard = Keyboard::GetInstance();
@@ -237,5 +286,6 @@ namespace DivaHook::Components
 		inputState->SetBit(bit, keyboard->IsDown(keycode), InputBufferType_Down);
 		inputState->SetBit(bit, keyboard->IsDoubleTapped(keycode), InputBufferType_DoubleTapped);
 		inputState->SetBit(bit, keyboard->IsIntervalTapped(keycode), InputBufferType_IntervalTapped);
+
 	}
 }
