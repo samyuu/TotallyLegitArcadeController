@@ -103,6 +103,7 @@
     <ClInclude Include="src\Components\FastLoader.h" />
     <ClInclude Include="src\Components\CustomPlayerData.h" />
     <ClInclude Include="src\Components\GameState.h" />
+    <ClInclude Include="src\Components\HoldState.h" />
     <ClInclude Include="src\Components\Input\TouchSliderEmulator.h" />
     <ClInclude Include="src\Components\FrameRateManager.h" />
     <ClInclude Include="src\Components\PlayerDataManager.h" />
