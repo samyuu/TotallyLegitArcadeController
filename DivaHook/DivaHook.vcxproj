@@ -103,15 +103,14 @@
     <ClInclude Include="src\Components\FastLoader.h" />
     <ClInclude Include="src\Components\CustomPlayerData.h" />
     <ClInclude Include="src\Components\GameState.h" />
-    <ClInclude Include="src\Components\HoldState.h" />
+    <ClInclude Include="src\Components\GameTargets\HoldState.h" />
     <ClInclude Include="src\Components\Input\TouchSliderEmulator.h" />
     <ClInclude Include="src\Components\FrameRateManager.h" />
     <ClInclude Include="src\Components\PlayerDataManager.h" />
     <ClInclude Include="src\Components\StageManager.h" />
-    <ClInclude Include="src\Components\TargetHitStates.h" />
-    <ClInclude Include="src\Components\TargetInspector.h" />
-    <ClInclude Include="src\Components\TargetState.h" />
-    <ClInclude Include="src\Components\TargetTypes.h" />
+    <ClInclude Include="src\Components\GameTargets\TargetHitStates.h" />
+    <ClInclude Include="src\Components\GameTargets\TargetState.h" />
+    <ClInclude Include="src\Components\GameTargets\TargetTypes.h" />
     <ClInclude Include="src\FileSystem\ConfigFile.h" />
     <ClInclude Include="src\Components\Input\InputBufferType.h" />
     <ClInclude Include="src\Constants.h" />
@@ -152,6 +151,7 @@
     <ClInclude Include="src\Components\Input\TouchSliderState.h" />
     <ClInclude Include="src\Utilities\Vec2.h" />
     <ClInclude Include="src\Utilities\Vec3.h" />
+    <ClInclude Include="src\Components\GameTargets\TargetInspector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\CameraController.cpp" />
@@ -194,6 +194,7 @@
     <ClCompile Include="src\Components\Input\TouchSliderState.cpp" />
     <ClCompile Include="src\Utilities\Vec2.cpp" />
     <ClCompile Include="src\Utilities\Vec3.cpp" />
+    <ClCompile Include="src\Components\GameTargets\TargetInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="rom\keyconfig.txt" />

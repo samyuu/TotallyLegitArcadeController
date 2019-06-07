@@ -1,4 +1,3 @@
-#include <cstdint>
 #pragma once
 
 namespace DivaHook::Components
@@ -7,7 +6,6 @@ namespace DivaHook::Components
 	{
 		int tgtType;
 		int tgtHitState;
-		int tgtRemainingTime;
-		bool repress;
+		float tgtRemainingTime;
 	};
 }

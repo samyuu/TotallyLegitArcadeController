@@ -20,6 +20,8 @@ using namespace DivaHook::Utilities;
 
 namespace DivaHook::Components
 {
+	int InputEmulator::holdTbl[4];
+
 	InputEmulator::InputEmulator()
 	{
 
@@ -117,19 +119,19 @@ namespace DivaHook::Components
 
 		lastDownState = inputState->Down.Buttons;
 
-		UpdateHoldState();
-		heldButtons = GetButtonFromHold(InputEmulator::holdTbl);
-
 		inputState->Tapped.Buttons = GetJvsButtonsState(tappedFunc);
 		inputState->Released.Buttons = GetJvsButtonsState(releasedFunc);
 		inputState->Down.Buttons = GetJvsButtonsState(downFunc);
 		inputState->DoubleTapped.Buttons = GetJvsButtonsState(tappedFunc);
 		inputState->IntervalTapped.Buttons = GetJvsButtonsState(tappedFunc);
 
+		UpdateHoldState();
+		heldButtons = GetButtonFromHold();
+
 		if ((lastDownState &= inputState->Tapped.Buttons) != 0)
 		{
 			inputState->Down.Buttons ^= inputState->Tapped.Buttons;
-			if (holdState != HOLD_NONE)
+			if (IsHold() && !TargetInspector::IsAnyRepress())
 				inputState->Down.Buttons |= heldButtons;
 		}
 
@@ -137,28 +139,36 @@ namespace DivaHook::Components
 		//inputState->Down.Buttons ^= inputState->Tapped.Buttons;
 	}
 
+	HoldState InputEmulator::GetHoldState()
+	{
+		return (HoldState)*((int*)HOLD_STATE_ADDRESS);
+	}
+
+	int InputEmulator::GetMaxHoldState()
+	{
+		return *(int*)MAX_HOLD_STATE_ADDRESS;
+	}
+
+	bool InputEmulator::IsHold()
+	{
+		return ((holdState != HOLD_NONE) && (GetMaxHoldState() != 1));
+	}
+
 	void InputEmulator::UpdateHoldState()
 	{
-		holdState = (HoldState)(*((int*)HOLD_STATE_ADDRESS));
-
-		for (int i = 0; i < 4; ++i)
-		{
-			holdTbl[i] = 0;
-		}
+		holdState = GetHoldState();
 
 		// this may not be the most elegant solution but it will do for now
 		int total = 0;
 		for (int i = 4; i > 0; --i)
 		{
 			int holdId = 1 << (i + 5);
+			holdTbl[i - 1] = 0;
 			if (holdId + total <= holdState)
 			{
 				total += holdId;
-				InputEmulator::holdTbl[i - 1] = 1;
+				holdTbl[i - 1] = 1;
 			}
-
-			if (total == holdState)
-				break;
 		}
 	}
 
@@ -234,17 +244,17 @@ namespace DivaHook::Components
 		return buttons;
 	}
 
-	JvsButtons InputEmulator::GetButtonFromHold(int holds[])
+	JvsButtons InputEmulator::GetButtonFromHold()
 	{
 		JvsButtons buttons = JVS_NONE;
 
-		if (holds[0] == 1)
+		if (holdTbl[0] == 1)
 			buttons |= JVS_TRIANGLE;
-		if (holds[1] == 1)
+		if (holdTbl[1] == 1)
 			buttons |= JVS_CIRCLE;
-		if (holds[2] == 1)
+		if (holdTbl[2] == 1)
 			buttons |= JVS_CROSS;
-		if (holds[3] == 1)
+		if (holdTbl[3] == 1)
 			buttons |= JVS_SQUARE;
 
 		return buttons;
