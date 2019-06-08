@@ -64,11 +64,10 @@ namespace DivaHook::Components
 	{
 		for (int i = 0; i < 4; ++i)
 		{
-			if (tbl[i])
-			{
-				if ((i == type || i + 4 == type || i + 18 == type))
-					return true;
-			}
+		
+			if (tbl[i] && (i == type || i + 4 == type || i + 18 == type))
+				return true;
+		
 		}
 		return false;
 	}
