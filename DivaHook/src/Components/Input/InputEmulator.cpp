@@ -158,17 +158,14 @@ namespace DivaHook::Components
 	{
 		holdState = GetHoldState();
 
-		// this may not be the most elegant solution but it will do for now
-		int total = 0;
-		for (int i = 4; i > 0; --i)
+		for (int i = 0; i < 4; ++i)
 		{
-			int holdId = 1 << (i + 5);
-			holdTbl[i - 1] = 0;
-			if (holdId + total <= holdState)
-			{
-				total += holdId;
-				holdTbl[i - 1] = 1;
-			}
+			int holdId = 1 << (i + 6);
+
+			if ((holdId & holdState) != 0)
+				holdTbl[i] = 1;
+			else
+				holdTbl[i] = 0;
 		}
 	}
 
@@ -248,13 +245,13 @@ namespace DivaHook::Components
 	{
 		JvsButtons buttons = JVS_NONE;
 
-		if (holdTbl[0] == 1)
+		if (holdTbl[0])
 			buttons |= JVS_TRIANGLE;
-		if (holdTbl[1] == 1)
+		if (holdTbl[1])
 			buttons |= JVS_CIRCLE;
-		if (holdTbl[2] == 1)
+		if (holdTbl[2])
 			buttons |= JVS_CROSS;
-		if (holdTbl[3] == 1)
+		if (holdTbl[3])
 			buttons |= JVS_SQUARE;
 
 		return buttons;

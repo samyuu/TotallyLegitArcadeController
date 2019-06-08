@@ -57,17 +57,15 @@ namespace DivaHook::Components
 
 	bool TargetInspector::HasNotBeenHit(int hitState)
 	{
-		return hitState == TargetHitStates::NONE;
+		return hitState == NONE;
 	}
 
 	bool TargetInspector::IsSameType(int type, int tbl[])
 	{
 		for (int i = 0; i < 4; ++i)
 		{
-		
 			if (tbl[i] && (i == type || i + 4 == type || i + 18 == type))
 				return true;
-		
 		}
 		return false;
 	}
