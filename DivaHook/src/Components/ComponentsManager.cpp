@@ -11,6 +11,7 @@
 #include "StageManager.h"
 #include "CameraController.h"
 #include "DebugComponent.h"
+#include "GameTargets/TargetInspector.h"
 
 using ConfigFile = DivaHook::FileSystem::ConfigFile;
 
@@ -28,8 +29,9 @@ namespace DivaHook::Components
 
 	void ComponentsManager::ParseAddComponents()
 	{
-		EmulatorComponent *allComponents[]
+		EmulatorComponent* allComponents[]
 		{
+			new TargetInspector(),
 			new InputEmulator(),
 			new TouchSliderEmulator(),
 			new TouchPanelEmulator(),
