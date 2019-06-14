@@ -28,7 +28,7 @@ namespace DivaHook::Components
 
 	private:
 		const uint64_t offset = 0x4A8;
-		const float timingThreshold = 0.07f;
+		const float timingThreshold = 0.13f;
 
 		TargetState tgtStates[maxTargetSlots];
 
@@ -36,7 +36,7 @@ namespace DivaHook::Components
 		int* tgtHitStatePtr;
 		float* tgtRemainingTimePtr;
 
-		bool IsSameType(int, int[]);
+		bool IsSlide(int);
 		bool IsWithinRange(float);
 		bool HasNotBeenHit(int);
 		void UpdateRepressTbl();
